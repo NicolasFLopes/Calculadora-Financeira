@@ -5,8 +5,11 @@ import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 public abstract class Transacao {
-    private static long contadorid = 0;
+
+    private static final AtomicLong SQUENCIA_ID = new AtomicLong(1);
+    
     private final Long id;
+    
     private String descricao;
     private double valor;
     private LocalDate data;
@@ -23,6 +26,8 @@ public abstract class Transacao {
         this.categoria = Objects.requireNonNull(categoria, "A categoria não pode ser nula.");
     }
 
+
+    //gtter e setters
     public abstract String getTipo();
 
     public Long getId() {
@@ -34,7 +39,12 @@ public abstract class Transacao {
     }
 
     public void setDescricao(String descricao) {
-        this.descricao = Objects.requireNonNull(descricao, "A descrição não pode ser nula.");
+        
+        if(descricao == null || descricao.isBlank()){
+            throw new IllegalArgumentException("A descrição não pode ser vazia");
+        }
+        
+        this.descricao = descricao.trim();
     }
 
     public double getValor() {
@@ -53,7 +63,13 @@ public abstract class Transacao {
     }
 
     public void setData(LocalDate data) {
-        this.data = Objects.requireNonNull(data, "A data não pode ser nula.");
+        
+        if(data == null){
+            throw new IllegalArgumentException("A data não pode ser nula");
+        }
+
+        this.data = data;
+    
     }
 
     public Categoria getCategoria() {
@@ -61,28 +77,43 @@ public abstract class Transacao {
     }
 
     public void setCategoria(Categoria categoria) {
-        this.categoria = Objects.requireNonNull(categoria, "A categoria não pode ser nula.");
+        
+        if(categoria == null){
+            throw new IllegalArgumentException("A categoria não pode ser nula");
+        }
+        
+        this.categoria = categoria;
+    
     }
 
     @Override
     public String toString() {
+
         DateTimeFormatter formatoData = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        
         return String.format("[%s] ID: %d | Data: %s | Categoria: %-12s | Descrição: %-20s | Valor: R$ %8.2f",
                 getTipo(),
                 id,
+                getTipo(),
                 data.format(formatoData),
-                categoria,
-                descricao,
-                valor);
+                categoria.getDescricao()
+            );
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o)
+    public boolean equals(Object objeto) {
+        
+        if (this == objeto){
             return true;
-        if (o == null || getClass() != o.getClass())
+        }
+
+        if (objeto == null || getClass() != objeto.getClass()){
             return false;
-        Transacao transacao = (Transacao) o;
+        }
+
+
+        Transacao transacao = (Transacao) objeto;
+
         return Objects.equals(id, transacao.id);
     }
 
