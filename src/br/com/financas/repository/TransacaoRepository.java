@@ -53,10 +53,14 @@ public class TransacaoRepository {
 
         for (Transacao t : transacoes) {
             String detalhe;
-            if (t instanceof Receita receita) {
+            if (t instanceof Receita) {
+                Receita receita = (Receita) t;
                 detalhe = receita.getFonte();
-            } else if (t instanceof Despesa despesa) {
+
+            } else if (t instanceof Despesa) {
+                Despesa despesa = (Despesa) t;
                 detalhe = despesa.getFormaPagamento().name();
+                
             } else {
                 detalhe = "";
             }
@@ -134,11 +138,14 @@ public class TransacaoRepository {
         Categoria categoria = Categoria.valueOf(partes[5].trim());
         String detalhe = desescapar(partes[6]);
 
-        return switch (tipo.toUpperCase(Locale.ROOT)) {
-            case "RECEITA" -> new Receita(id, descricao, valor, data, categoria, detalhe);
-            case "DESPESA" -> new Despesa(id, descricao, valor, data, categoria, FormaPagamento.valueOf(detalhe));
-            default -> throw new IllegalArgumentException("Tipo de transação desconhecido: " + tipo);
-        };
+        String tipoNormalizado = tipo.toUpperCase(Locale.ROOT);
+        if ("RECEITA".equals(tipoNormalizado)) {
+            return new Receita(id, descricao, valor, data, categoria, detalhe);
+        }
+        if ("DESPESA".equals(tipoNormalizado)) {
+            return new Despesa(id, descricao, valor, data, categoria, FormaPagamento.valueOf(detalhe));
+        }
+        throw new IllegalArgumentException("Tipo de transação desconhecido: " + tipo);
     }
 
     // Escapa o delimitador dentro de textos livres (descrição/fonte), trocando ";" por um

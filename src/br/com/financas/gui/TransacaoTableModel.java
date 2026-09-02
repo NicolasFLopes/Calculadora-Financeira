@@ -79,23 +79,33 @@ public class TransacaoTableModel extends AbstractTableModel {
     @Override
     public Object getValueAt(int linha, int coluna) {
         Transacao t = transacoes.get(linha);
-        return switch (coluna) {
-            case 0 -> t.getId();
-            case 1 -> t.getTipo();
-            case 2 -> t.getDescricao();
-            case 3 -> t.getCategoria().getDescricao();
-            case 4 -> String.format("R$ %,.2f", t.getValor());
-            case 5 -> t.getData().format(FORMATO_DATA);
-            case 6 -> extrairDetalhe(t);
-            default -> "";
-        };
+        switch (coluna) {
+            case 0:
+                return t.getId();
+            case 1:
+                return t.getTipo();
+            case 2:
+                return t.getDescricao();
+            case 3:
+                return t.getCategoria().getDescricao();
+            case 4:
+                return String.format("R$ %,.2f", t.getValor());
+            case 5:
+                return t.getData().format(FORMATO_DATA);
+            case 6:
+                return extrairDetalhe(t);
+            default:
+                return "";
+        }
     }
 
     private String extrairDetalhe(Transacao t) {
-        if (t instanceof Receita receita) {
+        if (t instanceof Receita) {
+            Receita receita = (Receita) t;
             return "Fonte: " + receita.getFonte();
         }
-        if (t instanceof Despesa despesa) {
+        if (t instanceof Despesa) {
+            Despesa despesa = (Despesa) t;
             return despesa.getFormaPagamento().getDescricao();
         }
         return "";

@@ -49,14 +49,30 @@ public class Main {
             int opcao = lerOpcaoMenu();
 
             switch (opcao) {
-                case 1 -> cadastrarReceita();
-                case 2 -> cadastrarDespesa();
-                case 3 -> listarTodas();
-                case 4 -> filtrarPorMesAno();
-                case 5 -> exibirResumoFinanceiro();
-                case 6 -> removerTransacao();
-                case 0 -> continuar = encerrarPrograma();
-                default -> System.out.println(">> Opção inválida. Escolha um número entre 0 e 6.");
+                case 1:
+                    cadastrarReceita();
+                    break;
+                case 2:
+                    cadastrarDespesa();
+                    break;
+                case 3:
+                    listarTodas();
+                    break;
+                case 4:
+                    filtrarPorMesAno();
+                    break;
+                case 5:
+                    exibirResumoFinanceiro();
+                    break;
+                case 6:
+                    removerTransacao();
+                    break;
+                case 0:
+                    continuar = encerrarPrograma();
+                    break;
+                default:
+                    System.out.println(">> Opção inválida. Escolha um número entre 0 e 6.");
+                    break;
             }
         }
 
