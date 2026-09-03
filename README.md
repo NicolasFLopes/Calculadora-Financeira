@@ -34,6 +34,7 @@ src/br/com/financas/
 │   └── TransacaoRepository.java        # Leitura e escrita no arquivo financas.csv
 └── service/                            # Regras de Negócio
     └── GerenciadorFinanceiro.java      # Gestão do saldo e lógica de transações
+---
 
 ✨ Principais Funcionalidades
 Gerenciamento de Transações:
@@ -50,6 +51,8 @@ Persistência de Dados Local:
 
 Armazenamento e carregamento das transações utilizando arquivo CSV (financas.csv).
 
+---
+
 🛠️ Tecnologias Utilizadas
 Linguagem: Java (JDK 8+)
 
@@ -58,6 +61,8 @@ Interface Gráfica: Java Swing / AWT
 Persistência Atual: Leitura e Escrita de Arquivos CSV (Java I/O)
 
 Paradigma: Orientação a Objetos (Herança, Polimorfismo e Encapsulamento)
+
+---
 
 🚀 Próximas Melhorias e Roadmap
 A evolução da Calculadora Financeira inclui a substituição do armazenamento local por banco de dados e a integração com canais de comunicação instantânea:
@@ -77,6 +82,8 @@ Bot de Lançamentos Rápidos: Criação de uma API/Webhook (utilizando WhatsApp 
 Notificações e Resumos: Envio de alertas periódicos com o resumo semanal/mensal de gastos e saldo disponível direto no celular.
 
 Consulta de Saldo: Responder a comandos de mensagem com o saldo atual do usuário.
+
+---
 
 🔧 Como Executar o Projeto
 
