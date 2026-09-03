@@ -1,79 +1,53 @@
-# Calculadora de Finanças Pessoais (Console + GUI)
+# 📈 Calculadora Financeira
 
-Projeto Java 26 demonstrando Herança, Polimorfismo, Encapsulamento, Abstração,
-Enum, `java.time`, tratamento de exceções e persistência em arquivo CSV.
+Uma aplicação voltada para o cálculo, simulação e gerenciamento de finanças pessoais e investimentos, desenvolvida para auxiliar na tomada de decisões financeiras inteligentes e no acompanhamento do patrimônio.
 
-> **Sobre o alvo Java 26:** o JDK 26 (GA em 17/03/2026) é uma release de curto
-> prazo (não-LTS) que não trouxe nenhuma nova feature *estável* de linguagem —
-> os destaques são melhorias de performance (AOT Object Caching, G1 GC),
-> previews em amadurecimento (Structured Concurrency, Lazy Constants,
-> Primitive Types in Patterns) e remoções que não afetam este projeto
-> (Applet API, InfiniBand SDP, RMI Activation). Por isso o código-fonte não
-> precisou mudar — só o alvo de compilação, abaixo.
+---
 
-## Estrutura
+## 🎯 Sobre o Projeto
 
-```
-src/br/com/financas/
-├── model/
-│   ├── Categoria.java
-│   ├── Transacao.java
-│   ├── Receita.java
-│   └── Despesa.java
-├── service/
-│   └── GerenciadorFinanceiro.java
-├── repository/
-│   └── TransacaoRepository.java
-├── app/
-│   └── Main.java              (entrada: versão console/Scanner)
-└── gui/
-    ├── MainApp.java           (entrada: versão gráfica/Swing)
-    ├── MainFrame.java         (janela principal)
-    ├── CadastroReceitaDialog.java
-    ├── CadastroDespesaDialog.java
-    ├── TransacaoTableModel.java
-    └── TransacaoRowRenderer.java
-```
+A **Calculadora Financeira** foi criada para simplificar a análise financeira de curto e longo prazo. Com ela, o usuário pode realizar simulações de rendimentos, comparar diferentes modalidades de investimento (como renda fixa e rentabilidade acumulada) e visualizar o impacto dos juros compostos ao longo do tempo.
 
-## Como compilar
+O projeto busca entregar praticidade para quem deseja organizar sua vida financeira, estimar projeções futuras e manter o controle de ativos.
 
-Requer o **JDK 26** instalado (não é necessária nenhuma dependência externa —
-Swing já faz parte do JDK padrão).
+---
 
-```bash
-# A partir da raiz do projeto:
-mkdir -p bin
-javac --release 26 -d bin -encoding UTF-8 $(find src -name "*.java")
-```
+## ✨ Principais Funcionalidades
 
-`--release 26` garante que o compilador use exatamente a API pública e as
-regras de linguagem do Java SE 26 (equivalente a compilar e rodar na mesma
-versão). Se preferir Maven/Gradle, basta configurar a *release* do compilador
-para `26` (`<maven.compiler.release>26</maven.compiler.release>` ou
-`sourceCompatibility = JavaVersion.toVersion(26)`, respectivamente).
+- **Simulador de Juros Compostos:** Cálculo de projeção de patrimônio com base em aporte inicial, aportes mensais, taxa de juros e tempo de aplicação.
+- **Comparador de Investimentos:** Análise simplificada da rentabilidade de diferentes ativos (Renda Fixa, Selic, IPCA+, etc.).
+- **Calculadora de Metas:** Estimativa de tempo e aporte mensal necessário para atingir determinado objetivo financeiro.
+- **Relatório de Projeção:** Exibição clara dos valores totais investidos versus total acumulado em juros.
 
-## Como executar
+---
 
-**Versão console (Scanner):**
-```bash
-java -cp bin br.com.financas.app.Main
-```
+## 🛠️ Tecnologias Utilizadas
 
-**Versão gráfica (Swing):**
-```bash
-java -cp bin br.com.financas.gui.MainApp
-```
+- **Linguagem Principal:** Python / JavaScript
+- **Interface / Automação:** HTML5 / CSS3 / Google Apps Script
+- **Controle de Versão:** Git & GitHub
 
-As duas interfaces compartilham exatamente as mesmas camadas `model`,
-`service` e `repository` — e o mesmo arquivo `financas.csv` — então dá para
-cadastrar uma transação pelo console e ver o mesmo dado carregado na versão
-gráfica em outra execução (e vice-versa).
+---
 
-Ao fechar (opção `0` no console, ou fechando a janela na versão gráfica), os
-dados são salvos automaticamente em `financas.csv` no diretório de execução,
-e serão recarregados na próxima vez que o programa for iniciado.
+## 🚀 Próximas Melhorias e Roadmap
 
-## Observação
+O projeto está em constante evolução. As próximas atualizações focarão em automação, persistência robusta de dados e facilidade de acesso no dia a dia:
 
-Este projeto não usa nenhum build tool (Maven/Gradle) propositalmente, para
-manter o foco em Java puro e nos conceitos de OOP solicitados.
+### 📲 1. Integração com WhatsApp
+- **Envio Automático de Notificações:** Recebimento de resumos diários ou semanais com o saldo total acumulado e andamento das metas diretamente no celular.
+- **Bot de Lançamentos via Mensagem:** Registrar novos aportes ou despesas enviando apenas uma mensagem de texto (ex: `+150 investimento` ou `-50 mercado`).
+- **Consultas Rápidas:** Comando no chat do WhatsApp para solicitar o cálculo rápido de projeções sem precisar abrir o sistema.
+
+### 🗄️ 2. Migração e Integração com Banco de Dados SQL
+- **Persistência de Dados Estruturada:** Substituição de planilhas/armazenamento local por um banco de dados relacional (ex: PostgreSQL / MySQL / SQLite).
+- **Histórico de Transações:** Armazenamento seguro de todo o histórico de aportes, resgates e rendimentos ao longo dos meses.
+- **Múltiplos Usuários:** Suporte para gestão financeira individual com contas isoladas e autenticação segura.
+- **Consultas Avançadas:** Consultas SQL otimizadas para geração de gráficos comparativos ano a ano.
+
+---
+
+## 🔧 Como Executar o Projeto Localmente
+
+1. **Clone este repositório:**
+   ```bash
+   git clone [https://github.com/NicolasFLopes/Calculadora-Financeira.git](https://github.com/NicolasFLopes/Calculadora-Financeira.git)
