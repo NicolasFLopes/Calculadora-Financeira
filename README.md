@@ -34,6 +34,7 @@ src/br/com/financas/
 │   └── TransacaoRepository.java        # Leitura e escrita no arquivo financas.csv
 └── service/                            # Regras de Negócio
     └── GerenciadorFinanceiro.java      # Gestão do saldo e lógica de transações
+
 ---
 
 ✨ Principais Funcionalidades
