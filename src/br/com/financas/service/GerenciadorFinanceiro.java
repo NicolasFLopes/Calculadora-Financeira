@@ -1,6 +1,7 @@
 package br.com.financas.service;
 
 import br.com.financas.model.Categoria;
+import br.com.financas.model.Despesa;
 import br.com.financas.model.Receita;
 import br.com.financas.model.Transacao;
 
@@ -103,7 +104,7 @@ public class GerenciadorFinanceiro {
 
     public double calcularTotalDespesas() {
         return transacoes.stream()
-                .filter(t -> !(t instanceof Receita))
+                .filter(t -> t instanceof Despesa)
                 .mapToDouble(Transacao::getValor)
                 .sum();
     }

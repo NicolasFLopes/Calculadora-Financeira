@@ -1,1 +1,5 @@
 id;tipo;descricao;valor;data;categoria;detalhe
+1;RECEITA;Começo do mês;2770.0;2026-09-03;SALARIO;Empresa
+2;RECEITA;FII;89.0;2026-09-03;INVESTIMENTO;RicoInvest
+3;DESPESA;Faculdade;8.0;2026-09-03;ALIMENTACAO;PIX
+4;RECEITA;açosjnd sodfjn;165.9;2026-09-03;ALIMENTACAO;Ren

@@ -255,7 +255,7 @@ public class MainFrame extends JFrame {
     private static String[] nomesDosMeses() {
         String[] nomes = new String[12];
         for (int i = 0; i < 12; i++) {
-            String nome = Month.of(i + 1).getDisplayName(TextStyle.FULL, new Locale("pt", "BR"));
+            String nome = Month.of(i + 1).getDisplayName(TextStyle.FULL, Locale.of("pt", "BR"));
             nomes[i] = nome.substring(0, 1).toUpperCase(Locale.ROOT) + nome.substring(1);
         }
         return nomes;
