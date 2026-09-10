@@ -1,6 +1,7 @@
 package br.com.financas.model;
 
 import java.time.LocalDate;
+import java.math.BigDecimal;
 
 /**
  * Representa uma saída de dinheiro (Despesa).
@@ -40,7 +41,7 @@ public class Despesa extends Transacao {
 
     private FormaPagamento formaPagamento;
 
-    public Despesa(String descricao, double valor, LocalDate data, Categoria categoria, FormaPagamento formaPagamento) {
+    public Despesa(String descricao, BigDecimal valor, LocalDate data, Categoria categoria, FormaPagamento formaPagamento) {
         super(descricao, valor, data, categoria);
         setFormaPagamento(formaPagamento);
     }
@@ -48,7 +49,7 @@ public class Despesa extends Transacao {
     /**
      * Construtor usado ao recarregar dados do CSV, preservando o ID original.
      */
-    public Despesa(Long id, String descricao, double valor, LocalDate data, Categoria categoria, FormaPagamento formaPagamento) {
+    public Despesa(Long id, String descricao, BigDecimal valor, LocalDate data, Categoria categoria, FormaPagamento formaPagamento) {
         super(id, descricao, valor, data, categoria);
         setFormaPagamento(formaPagamento);
     }
@@ -65,8 +66,8 @@ public class Despesa extends Transacao {
     }
 
     @Override
-    public String getTipo() {
-        return "DESPESA";
+    public TipoTransacao getTipo() {
+        return TipoTransacao.DESPESA;
     }
 
     @Override

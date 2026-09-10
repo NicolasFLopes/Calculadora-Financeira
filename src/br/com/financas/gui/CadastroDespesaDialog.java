@@ -9,6 +9,7 @@ import java.awt.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.math.BigDecimal;
 
 /**
  * JDialog modal para cadastro de uma Despesa.
@@ -79,7 +80,7 @@ public class CadastroDespesaDialog extends JDialog {
             Categoria categoria = (Categoria) comboCategoria.getSelectedItem();
             FormaPagamento formaPagamento = (FormaPagamento) comboFormaPagamento.getSelectedItem();
 
-            this.resultado = new Despesa(descricao, valor, data, categoria, formaPagamento);
+            this.resultado = new Despesa(descricao, BigDecimal.valueOf(valor), data, categoria, formaPagamento);
             dispose();
         } catch (NumberFormatException e) {
             mostrarErro("Valor inválido. Digite apenas números (ex.: 150.90).");

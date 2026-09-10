@@ -8,6 +8,7 @@ import java.awt.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.math.BigDecimal;
 
 /**
  * JDialog modal para cadastro de uma Receita.
@@ -85,7 +86,7 @@ public class CadastroReceitaDialog extends JDialog {
 
             // Toda a validação "de negócio" (campo vazio, valor <= 0, data futura, etc.)
             // acontece dentro do construtor de Receita — reaproveitando o model.
-            this.resultado = new Receita(descricao, valor, data, categoria, fonte);
+            this.resultado = new Receita(descricao, BigDecimal.valueOf(valor), data, categoria, fonte);
             dispose();
         } catch (NumberFormatException e) {
             mostrarErro("Valor inválido. Digite apenas números (ex.: 150.90).");

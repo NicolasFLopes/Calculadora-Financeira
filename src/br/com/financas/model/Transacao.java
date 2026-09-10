@@ -1,5 +1,6 @@
 package br.com.financas.model;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
@@ -26,11 +27,11 @@ public abstract class Transacao {
 
     private final Long id;
     private String descricao;
-    private double valor;
+    private BigDecimal valor;
     private LocalDate data;
     private Categoria categoria;
 
-    protected Transacao(String descricao, double valor, LocalDate data, Categoria categoria) {
+    protected Transacao(String descricao, BigDecimal valor, LocalDate data, Categoria categoria) {
         this.id = proximoId++;
         setDescricao(descricao);
         setValor(valor);
@@ -43,7 +44,7 @@ public abstract class Transacao {
      * a partir do arquivo CSV, onde o ID já existe e não deve ser gerado novamente.
      * Também é responsável por atualizar o contador estático para não repetir IDs.
      */
-    protected Transacao(Long id, String descricao, double valor, LocalDate data, Categoria categoria) {
+    protected Transacao(Long id, String descricao, BigDecimal valor, LocalDate data, Categoria categoria) {
         if (id == null || id <= 0) {
             throw new IllegalArgumentException("ID inválido ao reconstruir transação: " + id);
         }
@@ -69,7 +70,7 @@ public abstract class Transacao {
         return descricao;
     }
 
-    public double getValor() {
+    public BigDecimal getValor() {
         return valor;
     }
 
@@ -90,8 +91,8 @@ public abstract class Transacao {
         this.descricao = descricao.trim();
     }
 
-    public void setValor(double valor) {
-        if (valor <= 0) {
+    public void setValor(BigDecimal valor) {
+        if (valor == null || valor.compareTo(BigDecimal.ZERO) <= 0) {
             throw new IllegalArgumentException("O valor da transação deve ser maior que zero.");
         }
         this.valor = valor;
@@ -119,7 +120,7 @@ public abstract class Transacao {
      * diferente, e o restante do sistema (relatórios, CSV, menu) pode chamar
      * transacao.getTipo() sem saber qual é a subclasse concreta em tempo de execução.
      */
-    public abstract String getTipo();
+    public abstract TipoTransacao getTipo();
 
     /**
      * Método utilitário reaproveitado pelas subclasses para formatar o valor em

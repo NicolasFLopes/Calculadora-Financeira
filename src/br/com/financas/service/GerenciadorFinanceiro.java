@@ -98,14 +98,14 @@ public class GerenciadorFinanceiro {
     public double calcularTotalReceitas() {
         return transacoes.stream()
                 .filter(t -> t instanceof Receita)
-                .mapToDouble(Transacao::getValor)
+                .mapToDouble(t -> t.getValor().doubleValue())
                 .sum();
     }
 
     public double calcularTotalDespesas() {
         return transacoes.stream()
                 .filter(t -> t instanceof Despesa)
-                .mapToDouble(Transacao::getValor)
+                .mapToDouble(t -> t.getValor().doubleValue())
                 .sum();
     }
 

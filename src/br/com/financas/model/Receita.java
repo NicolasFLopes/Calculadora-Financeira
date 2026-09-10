@@ -1,6 +1,7 @@
 package br.com.financas.model;
 
 import java.time.LocalDate;
+import java.math.BigDecimal;
 
 /**
  * Representa uma entrada de dinheiro (Receita).
@@ -12,7 +13,7 @@ public class Receita extends Transacao {
 
     private String fonte; // Ex.: "Empresa X", "Freelance", "Aluguel recebido"
 
-    public Receita(String descricao, double valor, LocalDate data, Categoria categoria, String fonte) {
+    public Receita(String descricao, BigDecimal valor, LocalDate data, Categoria categoria, String fonte) {
         super(descricao, valor, data, categoria);
         setFonte(fonte);
     }
@@ -20,7 +21,7 @@ public class Receita extends Transacao {
     /**
      * Construtor usado ao recarregar dados do CSV, preservando o ID original.
      */
-    public Receita(Long id, String descricao, double valor, LocalDate data, Categoria categoria, String fonte) {
+    public Receita(Long id, String descricao, BigDecimal valor, LocalDate data, Categoria categoria, String fonte) {
         super(id, descricao, valor, data, categoria);
         setFonte(fonte);
     }
@@ -37,8 +38,8 @@ public class Receita extends Transacao {
     }
 
     @Override
-    public String getTipo() {
-        return "RECEITA";
+    public TipoTransacao getTipo() {
+        return TipoTransacao.RECEITA;
     }
 
     @Override

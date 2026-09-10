@@ -16,6 +16,7 @@ import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
+import java.math.BigDecimal;
 
 /**
  * Camada de APRESENTAÇÃO: interface via console (Scanner).
@@ -110,13 +111,13 @@ public class Main {
      * um número válido. Aceita tanto ponto quanto vírgula como separador decimal,
      * já que o usuário brasileiro tende a digitar vírgula por hábito.
      */
-    private static double lerValorMonetario(String mensagem) {
+    private static BigDecimal lerValorMonetario(String mensagem) {
         while (true) {
             System.out.print(mensagem);
             String entrada = scanner.nextLine().trim().replace(",", ".");
             try {
-                double valor = Double.parseDouble(entrada);
-                if (valor <= 0) {
+                BigDecimal valor = new BigDecimal(entrada);
+                if (valor.compareTo(BigDecimal.ZERO) <= 0) {
                     System.out.println(">> O valor deve ser maior que zero. Tente novamente.");
                     continue;
                 }
@@ -212,7 +213,7 @@ public class Main {
         System.out.println("\n--- Cadastro de Receita ---");
         try {
             String descricao = lerTexto("Descrição: ");
-            double valor = lerValorMonetario("Valor (R$): ");
+            BigDecimal valor = lerValorMonetario("Valor (R$): ");
             LocalDate data = lerData("Data");
             Categoria categoria = lerCategoria();
             String fonte = lerTexto("Fonte (ex.: Empresa, Freelance): ");
@@ -230,7 +231,7 @@ public class Main {
         System.out.println("\n--- Cadastro de Despesa ---");
         try {
             String descricao = lerTexto("Descrição: ");
-            double valor = lerValorMonetario("Valor (R$): ");
+            BigDecimal valor = lerValorMonetario("Valor (R$): ");
             LocalDate data = lerData("Data");
             Categoria categoria = lerCategoria();
             FormaPagamento formaPagamento = lerFormaPagamento();

@@ -5,6 +5,7 @@ import br.com.financas.model.Despesa;
 import br.com.financas.model.Despesa.FormaPagamento;
 import br.com.financas.model.Receita;
 import br.com.financas.model.Transacao;
+import java.math.BigDecimal;
 
 import java.io.IOException;
 import java.io.UncheckedIOException;
@@ -19,13 +20,17 @@ import java.util.Locale;
 /**
  * Camada de PERSISTÊNCIA (Repository Pattern).
  *
- * BOA PRÁTICA: isola COMPLETAMENTE o "como" os dados são salvos (formato CSV, caminho
- * do arquivo, encoding) do restante da aplicação. Se amanhã quisermos trocar CSV por
+ * BOA PRÁTICA: isola COMPLETAMENTE o "como" os dados são salvos (formato CSV,
+ * caminho
+ * do arquivo, encoding) do restante da aplicação. Se amanhã quisermos trocar
+ * CSV por
  * banco de dados, só esta classe precisa mudar — Main e GerenciadorFinanceiro
  * continuam iguais, pois dependem apenas de List<Transacao>.
  *
- * Usa java.nio.file (Files/Path), a API moderna de I/O do Java, preferível ao antigo
- * java.io.File por oferecer melhor tratamento de exceções e métodos utilitários.
+ * Usa java.nio.file (Files/Path), a API moderna de I/O do Java, preferível ao
+ * antigo
+ * java.io.File por oferecer melhor tratamento de exceções e métodos
+ * utilitários.
  */
 public class TransacaoRepository {
 
@@ -43,8 +48,10 @@ public class TransacaoRepository {
     }
 
     /**
-     * Salva a lista de transações no arquivo CSV, sobrescrevendo o conteúdo anterior.
-     * Cada subclasse é serializada em uma linha, com uma coluna "detalhe" que guarda
+     * Salva a lista de transações no arquivo CSV, sobrescrevendo o conteúdo
+     * anterior.
+     * Cada subclasse é serializada em uma linha, com uma coluna "detalhe" que
+     * guarda
      * o atributo específico (fonte da Receita, ou forma de pagamento da Despesa).
      */
     public void salvar(List<Transacao> transacoes) {
@@ -60,14 +67,14 @@ public class TransacaoRepository {
             } else if (t instanceof Despesa) {
                 Despesa despesa = (Despesa) t;
                 detalhe = despesa.getFormaPagamento().name();
-                
+
             } else {
                 detalhe = "";
             }
 
             String linha = String.join(DELIMITADOR,
                     String.valueOf(t.getId()),
-                    t.getTipo(),
+                    String.valueOf(t.getTipo().name()),
                     escapar(t.getDescricao()),
                     String.valueOf(t.getValor()),
                     t.getData().toString(), // formato ISO-8601 (yyyy-MM-dd), ideal para persistência
@@ -88,7 +95,8 @@ public class TransacaoRepository {
 
     /**
      * Carrega as transações do arquivo CSV. Se o arquivo ainda não existir
-     * (primeira execução do programa), retorna uma lista vazia em vez de lançar erro.
+     * (primeira execução do programa), retorna uma lista vazia em vez de lançar
+     * erro.
      */
     public List<Transacao> carregar() {
         List<Transacao> transacoes = new ArrayList<>();
@@ -101,14 +109,16 @@ public class TransacaoRepository {
             List<String> linhas = Files.readAllLines(arquivo, StandardCharsets.UTF_8);
             for (int i = 1; i < linhas.size(); i++) { // i=1 para pular o cabeçalho
                 String linha = linhas.get(i);
-                if (linha.isBlank()) continue;
+                if (linha.isBlank())
+                    continue;
 
                 try {
                     transacoes.add(converterLinha(linha));
                 } catch (Exception e) {
                     // Uma linha corrompida não deve impedir o carregamento das demais;
                     // registramos o problema e seguimos em frente (resiliência a dados ruins).
-                    System.out.println("[Aviso] Linha ignorada por estar corrompida (linha " + (i + 1) + "): " + e.getMessage());
+                    System.out.println(
+                            "[Aviso] Linha ignorada por estar corrompida (linha " + (i + 1) + "): " + e.getMessage());
                 }
             }
         } catch (IOException e) {
@@ -120,8 +130,10 @@ public class TransacaoRepository {
 
     /**
      * Converte uma linha do CSV de volta para o objeto de domínio correto
-     * (Receita ou Despesa), demonstrando o uso de POLIMORFISMO também na desserialização:
-     * o tipo de objeto criado depende de um dado (a coluna "tipo"), mas o restante do
+     * (Receita ou Despesa), demonstrando o uso de POLIMORFISMO também na
+     * desserialização:
+     * o tipo de objeto criado depende de um dado (a coluna "tipo"), mas o restante
+     * do
      * sistema volta a tratar tudo como Transacao.
      */
     private Transacao converterLinha(String linha) {
@@ -133,7 +145,7 @@ public class TransacaoRepository {
         Long id = Long.parseLong(partes[0].trim());
         String tipo = partes[1].trim();
         String descricao = desescapar(partes[2]);
-        double valor = Double.parseDouble(partes[3].trim().replace(",", "."));
+        BigDecimal valor = new BigDecimal(partes[3].trim().replace(",", "."));
         LocalDate data = LocalDate.parse(partes[4].trim());
         Categoria categoria = Categoria.valueOf(partes[5].trim());
         String detalhe = desescapar(partes[6]);
@@ -148,8 +160,10 @@ public class TransacaoRepository {
         throw new IllegalArgumentException("Tipo de transação desconhecido: " + tipo);
     }
 
-    // Escapa o delimitador dentro de textos livres (descrição/fonte), trocando ";" por um
-    // caractere improvável de aparecer digitado pelo usuário, evitando quebrar o parsing do CSV.
+    // Escapa o delimitador dentro de textos livres (descrição/fonte), trocando ";"
+    // por um
+    // caractere improvável de aparecer digitado pelo usuário, evitando quebrar o
+    // parsing do CSV.
     private String escapar(String texto) {
         return texto == null ? "" : texto.replace(DELIMITADOR, ",");
     }
