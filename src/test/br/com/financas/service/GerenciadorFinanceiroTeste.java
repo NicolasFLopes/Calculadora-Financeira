@@ -7,9 +7,9 @@ class GerenciadorFinanceiroTest {
 
         Receita receita = new Receita(
             "Salário",
-            new BigDecimal(""),
+            new BigDecimal("5000.00")
 
             
-        )
+        );
     }
 }
