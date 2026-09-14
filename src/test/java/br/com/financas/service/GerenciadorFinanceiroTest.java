@@ -1,3 +1,4 @@
+package br.com.financas.service;
 class GerenciadorFinanceiroTest {
 
     @Test
