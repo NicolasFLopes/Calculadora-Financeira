@@ -5,6 +5,7 @@ import br.com.financas.model.Despesa;
 import br.com.financas.model.Receita;
 import br.com.financas.model.Transacao;
 
+import java.math.BigDecimal;
 import java.time.Month;
 import java.time.Year;
 import java.util.ArrayList;
@@ -95,22 +96,22 @@ public class GerenciadorFinanceiro {
      * usamos "instanceof" / getTipo() apenas para SOMAR; o comportamento de
      * "como se formata" ou "quais atributos tem" continua encapsulado em cada subclasse.
      */
-    public double calcularTotalReceitas() {
+    public BigDecimal calcularTotalReceitas() {
         return transacoes.stream()
                 .filter(t -> t instanceof Receita)
-                .mapToDouble(t -> t.getValor().doubleValue())
-                .sum();
+                .map(Transacao::getValor)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 
-    public double calcularTotalDespesas() {
+    public BigDecimal calcularTotalDespesas() {
         return transacoes.stream()
                 .filter(t -> t instanceof Despesa)
-                .mapToDouble(t -> t.getValor().doubleValue())
-                .sum();
+                .map(Transacao::getValor)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 
-    public double calcularSaldo() {
-        return calcularTotalReceitas() - calcularTotalDespesas();
+    public BigDecimal calcularSaldo() {
+        return calcularTotalReceitas().subtract(calcularTotalDespesas());
     }
 
     public int totalDeTransacoes() {

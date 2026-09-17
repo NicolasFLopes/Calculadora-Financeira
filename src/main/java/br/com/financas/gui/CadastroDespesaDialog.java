@@ -75,12 +75,12 @@ public class CadastroDespesaDialog extends JDialog {
     private void tentarSalvar() {
         try {
             String descricao = campoDescricao.getText();
-            double valor = parseValor(campoValor.getText());
+            BigDecimal valor = parseValor(campoValor.getText());
             LocalDate data = parseData(campoData.getText());
             Categoria categoria = (Categoria) comboCategoria.getSelectedItem();
             FormaPagamento formaPagamento = (FormaPagamento) comboFormaPagamento.getSelectedItem();
 
-            this.resultado = new Despesa(descricao, BigDecimal.valueOf(valor), data, categoria, formaPagamento);
+            this.resultado = new Despesa(descricao, valor, data, categoria, formaPagamento);
             dispose();
         } catch (NumberFormatException e) {
             mostrarErro("Valor inválido. Digite apenas números (ex.: 150.90).");
@@ -91,8 +91,8 @@ public class CadastroDespesaDialog extends JDialog {
         }
     }
 
-    private double parseValor(String texto) {
-        return Double.parseDouble(texto.trim().replace(",", "."));
+    private BigDecimal parseValor(String texto) {
+        return new BigDecimal(texto.trim().replace(",", "."));
     }
 
     private LocalDate parseData(String texto) {

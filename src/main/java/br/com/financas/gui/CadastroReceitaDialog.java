@@ -79,14 +79,14 @@ public class CadastroReceitaDialog extends JDialog {
     private void tentarSalvar() {
         try {
             String descricao = campoDescricao.getText();
-            double valor = parseValor(campoValor.getText());
+            BigDecimal valor = parseValor(campoValor.getText());
             LocalDate data = parseData(campoData.getText());
             Categoria categoria = (Categoria) comboCategoria.getSelectedItem();
             String fonte = campoFonte.getText();
 
             // Toda a validação "de negócio" (campo vazio, valor <= 0, data futura, etc.)
             // acontece dentro do construtor de Receita — reaproveitando o model.
-            this.resultado = new Receita(descricao, BigDecimal.valueOf(valor), data, categoria, fonte);
+            this.resultado = new Receita(descricao, valor, data, categoria, fonte);
             dispose();
         } catch (NumberFormatException e) {
             mostrarErro("Valor inválido. Digite apenas números (ex.: 150.90).");
@@ -98,8 +98,8 @@ public class CadastroReceitaDialog extends JDialog {
         }
     }
 
-    private double parseValor(String texto) {
-        return Double.parseDouble(texto.trim().replace(",", "."));
+    private BigDecimal parseValor(String texto) {
+        return new BigDecimal(texto.trim().replace(",", "."));
     }
 
     private LocalDate parseData(String texto) {

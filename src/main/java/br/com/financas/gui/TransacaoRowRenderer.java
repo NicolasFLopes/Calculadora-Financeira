@@ -7,12 +7,16 @@ import java.awt.Component;
 
 /**
  * Renderer customizado: pinta a linha de verde clarinho para Receita e vermelho
- * clarinho para Despesa, dando um feedback visual imediato do tipo de lançamento
+ * clarinho para Despesa, dando um feedback visual imediato do tipo de
+ * lançamento
  * sem precisar ler a coluna "Tipo".
  *
- * BOA PRÁTICA (Swing): a coluna "Tipo" é a coluna de índice 1 no TransacaoTableModel;
- * usamos o próprio valor renderizado da tabela para decidir a cor, em vez de guardar
- * estado duplicado aqui — assim o renderer nunca fica dessincronizado do modelo.
+ * BOA PRÁTICA (Swing): a coluna "Tipo" é a coluna de índice 1 no
+ * TransacaoTableModel;
+ * usamos o próprio valor renderizado da tabela para decidir a cor, em vez de
+ * guardar
+ * estado duplicado aqui — assim o renderer nunca fica dessincronizado do
+ * modelo.
  */
 public class TransacaoRowRenderer extends DefaultTableCellRenderer {
 
@@ -22,7 +26,7 @@ public class TransacaoRowRenderer extends DefaultTableCellRenderer {
 
     @Override
     public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,
-                                                     boolean hasFocus, int row, int column) {
+            boolean hasFocus, int row, int column) {
         Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
 
         if (isSelected) {

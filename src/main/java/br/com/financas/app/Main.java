@@ -290,17 +290,17 @@ public class Main {
 
     private static void exibirResumoFinanceiro() {
         System.out.println("\n--- Resumo Financeiro ---");
-        double totalReceitas = gerenciador.calcularTotalReceitas();
-        double totalDespesas = gerenciador.calcularTotalDespesas();
-        double saldo = gerenciador.calcularSaldo();
+        BigDecimal totalReceitas = gerenciador.calcularTotalReceitas();
+        BigDecimal totalDespesas = gerenciador.calcularTotalDespesas();
+        BigDecimal saldo = gerenciador.calcularSaldo();
 
         System.out.printf("Total de Receitas: R$ %,.2f%n", totalReceitas);
         System.out.printf("Total de Despesas: R$ %,.2f%n", totalDespesas);
         System.out.println("-------------------------------------");
-        if (saldo >= 0) {
+        if (saldo.compareTo(BigDecimal.ZERO) >= 0) {
             System.out.printf("Saldo Final: R$ %,.2f (positivo)%n", saldo);
         } else {
-            System.out.printf("Saldo Final: -R$ %,.2f (negativo)%n", Math.abs(saldo));
+            System.out.printf("Saldo Final: -R$ %,.2f (negativo)%n", saldo.abs());
         }
     }
 

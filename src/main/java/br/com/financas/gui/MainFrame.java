@@ -8,6 +8,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.math.BigDecimal;
 import java.time.Month;
 import java.time.Year;
 import java.time.format.TextStyle;
@@ -216,7 +217,10 @@ public class MainFrame extends JFrame {
         atualizarTabela(gerenciador.listarTodas());
     }
 
-    /** Depois de adicionar/remover, reaplica o mesmo filtro que estava ativo (se houver). */
+    /**
+     * Depois de adicionar/remover, reaplica o mesmo filtro que estava ativo (se
+     * houver).
+     */
     private void reaplicarVisualizacaoAtual() {
         if (filtroAtivo) {
             aplicarFiltroMesAno();
@@ -236,14 +240,16 @@ public class MainFrame extends JFrame {
      * nunca confunda "saldo do mês filtrado" com "saldo geral".
      */
     private void atualizarResumo() {
-        double totalReceitas = gerenciador.calcularTotalReceitas();
-        double totalDespesas = gerenciador.calcularTotalDespesas();
-        double saldo = gerenciador.calcularSaldo();
+        BigDecimal totalReceitas = gerenciador.calcularTotalReceitas();
+        BigDecimal totalDespesas = gerenciador.calcularTotalDespesas();
+        BigDecimal saldo = gerenciador.calcularSaldo();
 
         labelTotalReceitas.setText(String.format("Receitas: R$ %,.2f", totalReceitas));
         labelTotalDespesas.setText(String.format("Despesas: R$ %,.2f", totalDespesas));
-        labelSaldo.setText(String.format("Saldo: %sR$ %,.2f", saldo < 0 ? "-" : "", Math.abs(saldo)));
-        labelSaldo.setForeground(saldo >= 0 ? new Color(0, 128, 0) : Color.RED);
+        boolean saldoNegativo = saldo.compareTo(BigDecimal.ZERO) < 0;
+        labelSaldo.setText(
+                String.format("Saldo: %sR$ %,.2f", saldo.compareTo(BigDecimal.ZERO) < 0 ? "-" : "", saldo.abs()));
+        labelSaldo.setForeground(saldo.compareTo(BigDecimal.ZERO) >= 0 ? new Color(0, 128, 0) : Color.RED);
     }
 
     private void salvarESair() {
