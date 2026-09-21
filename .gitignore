@@ -1,0 +1,15 @@
+#Build Maven
+target/
+
+# IDEs
+.vscode/
+.idea/
+*.iml
+
+#Dados pessoais da aplicação
+financas.csv
+
+#Sistema Operacional 
+.DS_Store
+Thumbs.db
+    

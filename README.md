@@ -14,10 +14,9 @@ A **Calculadora Financeira** é um sistema desktop desenvolvido em **Java** com 
 
 O código-fonte está organizado em camadas no pacote `br.com.financas`:
 
-```text
-src/br/com/financas/
+src/main/java/br/com/financas/
 ├── app/
-│   └── Main.java                       # Ponto de entrada da aplicação
+│   └── Main.java                       # Console da aplicação
 ├── gui/                                # Interface Gráfica (Swing)
 │   ├── MainApp.java                    # Aplicação principal Swing
 │   ├── MainFrame.java                  # Janela principal e tabelas
@@ -29,13 +28,13 @@ src/br/com/financas/
 │   ├── Transacao.java                  # Classe abstrata base para movimentações
 │   ├── Receita.java                    # Entidade de entrada de valores
 │   ├── Despesa.java                    # Entidade de saída de valores
-│   └── Categoria.java                  # Enumeração/Entidade de categorias
+│   └── Categoria.java                  # Enum de categorias
 ├── repository/                         # Camada de Persistência
 │   └── TransacaoRepository.java        # Leitura e escrita no arquivo financas.csv
 └── service/                            # Regras de Negócio
     └── GerenciadorFinanceiro.java      # Gestão do saldo e lógica de transações
-
----
+│
+└──pom.xml                              #Build Maven
 
 ✨ Principais Funcionalidades
 Gerenciamento de Transações:
@@ -55,7 +54,7 @@ Armazenamento e carregamento das transações utilizando arquivo CSV (financas.c
 ---
 
 🛠️ Tecnologias Utilizadas
-Linguagem: Java (JDK 8+)
+Linguagem: Java (JDK 21)
 
 Interface Gráfica: Java Swing / AWT
 
@@ -90,13 +89,40 @@ Consulta de Saldo: Responder a comandos de mensagem com o saldo atual do usuári
 
 Clone o repositório:
 
-Bash
+```Bash
 
 git clone [https://github.com/NicolasFLopes/Calculadora-Financeira.git](https://github.com/NicolasFLopes/Calculadora-Financeira.git)
 Abra o projeto em sua IDE Java preferida (Eclipse, IntelliJ IDEA, NetBeans e VSCode).
+ 
+```
+
+---
+
+## 🚀 Como Executar o Projeto
+
+Certifique-se de ter o **Java** (versão X) e o **Maven** instalados na sua máquina. Siga as etapas abaixo para testar, compilar e rodar a aplicação:
+
+### 1. Executar os Testes
+Para rodar os testes unitários e garantir que tudo está funcionando como esperado, execute:
+
+```bash
+mvn test
+
+mvn package
+
+java -jar target/Calculadora-Financeira-1.0-SNAPSHOT.jar
+
+```
 
 Navegue até a classe principal:
 
 Plaintext
-src/br/com/financas/app/Main.java
-Execute o método main para iniciar a interface gráfica Swing.
+src/main/java/br/com/financas/gui/AppMain.java
+Execute o método AppMain para iniciar a interface gráfica Swing.
+src/main/java/br/com/financas/app/Main.java
+Execute o método Main para iniciar o console.
+
+
+
+---
+
