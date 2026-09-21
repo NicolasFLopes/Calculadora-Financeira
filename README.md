@@ -121,9 +121,13 @@ java -jar target/Calculadora-Financeira-1.0-SNAPSHOT.jar
 Navegue até a classe principal:
 
 Plaintext
+
 src/main/java/br/com/financas/gui/AppMain.java
+
 Execute o método AppMain para iniciar a interface gráfica Swing.
+
 src/main/java/br/com/financas/app/Main.java
+
 Execute o método Main para iniciar o console.
 
 
