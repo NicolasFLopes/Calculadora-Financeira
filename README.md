@@ -12,8 +12,10 @@ A **Calculadora Financeira** é um sistema desktop desenvolvido em **Java** com 
 
 ## 🏗️ Estrutura do Projeto
 
+
 O código-fonte está organizado em camadas no pacote `br.com.financas`:
 
+``` 
 src/main/java/br/com/financas/
 ├── app/
 │   └── Main.java                       # Console da aplicação
@@ -35,6 +37,8 @@ src/main/java/br/com/financas/
     └── GerenciadorFinanceiro.java      # Gestão do saldo e lógica de transações
 │
 └──pom.xml                              #Build Maven
+
+```
 
 ✨ Principais Funcionalidades
 Gerenciamento de Transações:
